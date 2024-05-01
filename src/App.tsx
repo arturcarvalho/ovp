@@ -11,12 +11,12 @@ function App() {
 
   function updateRemainingCharge() {
     setCharge((prev) => {
-      const sameValue = maybeTrue(0.99);
+      const sameValue = maybeTrue(0.9999);
+      console.log(sameValue)
       return sameValue ? prev : prev + 1;
     });
   }
 
-  // The fast interval is ok, the browsers will throttle it if too low.
   useInterval(updateRemainingCharge, 5);
 
   // todo: replace <br>
@@ -34,6 +34,8 @@ Issue: if the next value set is the same as the previous, the memory usage will 
  - Same issue if used on private window (firefox or chrome)<br />
  - Tested on mac m1 and m2<br />
  - useMemo doesn't fix it<br />
+ - The 5 ms is ok, the browsers will throttle it if too low<br />
+ - production or dev build makes no difference<br />
  - the issue is not because the charge is 0 and being considered null<br />
  - Collecting garbage doesn't fix it (little broom icon on devtools)<br />
  - The issue happens if you use the `useHook-ts` or `useInterval` from the Dan Abramovs or Josh Comeaus blog<br />
